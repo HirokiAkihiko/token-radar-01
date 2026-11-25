@@ -55,7 +55,9 @@ already trade. This model learns from them.
 rounded to whole dollars. Every row also carries a **confidence** score
 (0–100: peer depth, known age, absolute TVL, chain breadth) with a
 High / Medium / Early tier, kept separate from value so thin-evidence
-finds are labelled, not hidden.
+finds are labelled, not hidden. A category priced by fewer than three
+traded peers is capped at 64 (Medium at best) however large the protocol
+is — one peer's price is a hint, not evidence.
 
 The board covers **all 40 watchlist protocols** (the floor: TVL ≥ $50M,
 records no token, not a wrapped/staked/bridged product of a traded

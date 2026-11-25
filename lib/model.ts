@@ -262,6 +262,10 @@ export function scoreProtocol(
   confidence += p.tvl_usd >= 1_000_000_000 ? 20 : p.tvl_usd >= 100_000_000 ? 14 : p.tvl_usd >= 50_000_000 ? 9 : 5;
   confidence += Math.min(10, chainCount * 2);
   confidence = Math.min(98, confidence);
+  // A category priced by fewer than three traded peers rests on thin
+  // evidence no matter how large or old the protocol is: cap its
+  // confidence in the Medium band so the board never calls it High.
+  if (peers < 3) confidence = Math.min(confidence, 64);
   const tier = confidence >= 70 ? 'High' : confidence >= 50 ? 'Medium' : 'Early';
   return { implied, multiple, peers, growthPct, growthMult, maturityMult, breadthMult, age, confidence, tier };
 }
